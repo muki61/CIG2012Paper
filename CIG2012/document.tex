@@ -1,10 +1,12 @@
 \documentclass[conference]{IEEEtran}
 % If the IEEEtran.cls has not been installed into the LaTeX system files,
-% manually specify the path to it.  e.g.
+% manually specify the path to it. e.g.
 % \documentclass[conference]{./IEEEtran}
 
 % Add and required packages here
-\usepackage{graphicx,times,amsmath, fontenc}
+\usepackage{graphicx,times,amsmath,fontenc}
+\usepackage[hyphens]{url}
+% \usepackage{hyperref}
 
 % Correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor IEEEtran}
@@ -13,26 +15,27 @@
 \IEEEoverridecommandlockouts
 
 \textwidth 178mm
-\textheight 239mm
-\oddsidemargin -7mm
-\evensidemargin -7mm
+\textheight 240mm
+\oddsidemargin -6mm
+\evensidemargin -6mm
 \topmargin -6mm
 \columnsep 5mm
 
 \begin{document}
 
 % Paper title: keep the \ \\ \LARGE\bf in it to leave enough margin.
-\title{\ \\ \LARGE\bf Developing Game Strategy for Monopoly Using Genetic
-Algorithms \thanks{K. Mukhar is a Master’s Degree candidate at the University of
-Colorado Colorado Springs, CO 80918 USA (phone: 1-408-475-6854; e-mail: {\tt
-kmukhar@uccs.edu}). J. K. Kalita is with the Department of Computer Science,
-University of Colorado Colorado Springs, CO 80918 USA. (e-mail: {\tt
-jkalita@uccs.edu}).Monopoly is a registered trademark of Hasbro, Inc. }}
+\title{\ \\ \LARGE\bf Developing Game Strategy for
+Monopoly\textsuperscript{\textregistered} \\ Using Genetic Algorithms \thanks{K.
+Mukhar is a Master’s Degree candidate at the University of Colorado Colorado
+Springs, CO 80918 USA (phone: 1-408-475-6854; e-mail: {\tt kmukhar@uccs.edu}).
+J. K. Kalita is with the Department of Computer Science, University of Colorado
+Colorado Springs, CO 80918 USA. (e-mail: {\tt jkalita@uccs.edu}). Monopoly is a
+registered trademark of Hasbro, Inc. }}
 
 \author{K Mukhar, J K Kalita}
 
 % Uncomment out the following line for invited papers
-%\specialpapernotice{(Invited Paper)}
+% \specialpapernotice{(Invited Paper)}
 
 % Make the title area
 \maketitle
@@ -43,10 +46,11 @@ computation. A great deal of research has been conducted into using AI to solve
 deterministic games with complete information. However, research in
 non-deterministic games is more limited. This paper details study of the use of
 genetic algorithm techniques to evolve game strategies for the multi-player
-non-deterministic game Monopoly. Populations of Monopoly players were evolved
-using various chromosomes and fitness functions. The results showed that it was
-indeed possible to evolve players despite the high level of non-determinism and
-that the strategies that evolved tracked closely with heuristic rules used by
+non-deterministic game Monopoly\textsuperscript{\textregistered}. Populations of
+Monopoly\textsuperscript{\textregistered} players were evolved using various
+chromosomes and fitness functions. The results showed that it was indeed
+possible to evolve players despite the high level of non-determinism and that
+the strategies that evolved tracked closely with heuristic rules used by
 real-world players.
 \end{abstract}
 
@@ -54,14 +58,15 @@ real-world players.
 
 \section{Introduction}
 % No \PARstart
-In Theory of Games and Economic Behavior by Von Neumann and Morgenstern, games
-were used to model economics and economic behavior~\cite{neumann2007theory}.
-Early work by mathematicians studying card and dice games led to the development
-of statistics and probability~\cite{hald1990history,rudas2008handbook} . Games
-can be to study how social behavior and human interactions affect and are
-affected by game play~\cite{fararo1992meaning}. A great deal of artificial
-intelligence research deals with developing AI game players and finding optimum
-game strategies~\cite{russell2010artificial}.
+In \emph{Theory of Games and Economic Behavior} by Von Neumann and Morgenstern,
+games were used to model economics and economic
+behavior~\cite{neumann2007theory}. Early work by mathematicians studying card
+and dice games led to the development of statistics and
+probability~\cite{hald1990history,rudas2008handbook}. Games can be used to study
+how social behavior and human interactions affect and are affected by game
+play~\cite{fararo1992meaning}. A great deal of artificial intelligence research
+deals with developing AI game players and finding optimum game
+strategies~\cite{russell2010artificial}.
 
 Early research into AI and games tended to focus on developing algorithms for
 searching the space of legal moves. This research led to such techniques as the
@@ -85,92 +90,24 @@ This study investigates using evolutionary computation to evolve game strategies
 for these types of games. In general, this study evaluated whether genetic
 algorithms can be used to develop strategies for non-deterministic games.
 Specifically, genetic algorithms were applied to the non-deterministic game
-known as Monopoly to evolve game playing strategies.
+known as Monopoly\textsuperscript{\textregistered} to evolve game playing strategies.
 
 The rest of this paper is organized as follows. Section II reviews related
 research in applying genetic algorithms to various games from the relatively
 simple Prisoner’s Dilemma to more complicated games such as Othello. Section III
-presents a discussion of the game of Monopoly, focusing on the rules of the
-game and various heuristic strategies that have been developed since the game’s
-introduction. Based on the rules and heuristics, a genetic algorithm is designed
-and presented in Section IV. Section V presents the results of evolving a
-population of Monopoly players, using various fitness functions. Finally,
-Section VI summarizes the results and discusses future research directions.
-
-\subsection{Example of a Figure}
-Below is an example of a floating figure using the graphicx
-package.  Note that $\backslash$label must occur AFTER (or within)
-$\backslash$caption.  For figures, $\backslash$caption should occur
-after the $\backslash$includegraphics.  To reference a figure, use
-the word Figure followed by the figure number.  Here is an example:
-Figure~\ref{figure-fig1}.
-
-\begin{figure}[htp]
-\centerline{\includegraphics[width=0.6\columnwidth]{pippi_langstrumpf.eps}}
-\caption{The first author and a member of her team}
-\label{figure-fig1}
-\end{figure}
-
-\subsection{Figures and Tables}
-Please follow the style in this sample paper when generating your figures
-and tables.
-
-\subsection{Page Limit and Overlength Page Charges}
-A paper submitted to this conference should be prepared in a
-single-spaced, two-column format.  Its length must be kept to 8
-pages or less.  In exceptional circumstances, up to two additional
-pages will be permitted for a charge of USD\$100 per additional page.
-Table~\ref{table-tab1} shows the page limit and page charge schedule.
-
-% An example of a floating table.  Note that, for IEEE style tables, the
-% \caption command should come BEFORE the table.  Table text will default
-% to \footnotesize as IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-\begin{table}
-\begin{center}
-%% Increase table row spacing; adjust to taste
-\renewcommand{\arraystretch}{1.3}
-\caption{Page Limit}
-\label{table-tab1}
-% The array package and the MDW tools package offers better commands
-% for making tables than plain LaTeX2e's tabular which is used here.
-\begin{tabular}{|c|c|}
-\hline
-Page limit: & 8\\
-\hline
-Excess page charge: & USD\$100/page\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-Another example of a table is shown in Table~\ref{table-tab2}.
-
-\begin{table}[h]
-\caption{A second table}
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-\multicolumn{1}{|c|}{\raisebox{-1.50ex}[0cm][0cm]{\!Method\!}}
-& \multicolumn{1}{|c|}{Mean}
-& \multicolumn{1}{|c|}{Best}
-& \multicolumn{1}{|c|}{Mean}
-& \multicolumn{1}{|c|}{Maximum}
-& \multicolumn{1}{|c|}{Minimum} \\
-& time & time & cost & cost & cost\\ \hline
-A      &  $928.36$  &  $926.20$  &  $124793.5$ & $126902.9$ & $123488.3$ \\ \hline
-B      &  $646.16$  &  $644.28$  &  $124119.4$ & $127245.9$ & $122679.7$ \\ \hline
-C      &  $1056.8$  &  $1054.2$  &  $123489.7$ & $124356.5$ & $122647.6$ \\ \hline
-D      &  $632.67$  &  $630.36$  &  $123382.0$ & $125740.6$ & $122624.4$ \\ \hline
-\end{tabular}
-\label{table-tab2}
-\end{center}
-\end{table}
+presents a discussion of the game of Monopoly\textsuperscript{\textregistered},
+focusing on the rules of the game and various heuristic strategies that have
+been developed since the game’s introduction. Based on the rules and heuristics,
+a genetic algorithm is designed and presented in Section IV. Section V presents
+the results of evolving a population of
+Monopoly\textsuperscript{\textregistered} players, using various fitness
+functions. Finally, Section VI summarizes the results and discusses future
+research directions.
 
 \section{Background}
 
-Holland, in his seminal work Adaptation in Natural and Artificial Systems,
-discussed applications of genetic algorithms to games~\cite{Holland1992}.
+Holland, in his seminal work \emph{Adaptation in Natural and Artificial
+Systems}, discussed applications of genetic algorithms to games~\cite{Holland1992}.
 Holland showed that the search space of many games quickly grew to a size that
 is not computationally tractable. He discussed how an artificial adaptive system
 (i.e., evolutionary computation) could be used to efficiently search the game
@@ -187,7 +124,7 @@ studies have shown that when the game is played repeatedly between two or more
 players (known as the Iterated Prisoner's Dilemma game), a strategy of
 cooperation will evolve
 spontaneously~\cite{Nowak1993,DBLP:conf/cig/QuekG07,Axelrod5,mittal2009,wang5573053}.
-  
+
 The game of Tic-Tac-Toe is a relatively simple two-player competitive game
 played on a 3x3 grid. Players alternately place a symbol, (usually one player
 plays X and the other plays O) on an open grid space; the winner is the player
@@ -196,7 +133,7 @@ of three of his own symbols. Fogel showed that genetic algorithms could be used
 to evolve neural networks to play the game~\cite{Fogel1993}. The game also can
 be solved using a pure genetic algorithm, with the genome encoding the different
 game board permutations.
-  
+
 In Checkers each player has 12 pieces that can move diagonally on a board
 divided into an 8x8 grid of squares. If one player's piece is adjacent to the
 opponent's piece, and there is a blank square on the opposite side of the
@@ -206,11 +143,11 @@ pieces from the board. Fogel and Chellapilla used a neural network that was
 optimized using evolutionary computing and then tested the network in an on-line
 tournament. Their evolved ANN player was able to play at Expert
 level~\cite{Fogel2000Anaconda,journals/tec/ChellapillaF01}.
-  
+
 Othello (also known as Reversi) is a two-player game where players take turns
 placing colored tokens on the board. The winner is the player who can get the
 most tokens of his color on the board. Play is complicated by the fact that a
-player can only place a token in a way that “captures” the opponent's tokens.
+player can only place a token in a way that ``captures'' the opponent's tokens.
 This is done by placing a token adjacent to an opponent's token such that at
 least one of the opponent's tokens lies between the new token and one of the
 already placed tokens. When a player captures a line of the opponent's tokens,
@@ -223,46 +160,60 @@ success. Genetic algorithms have been applied to games such as
 Chess~\cite{Mitsuta:2010:OPG:1994486.1994517} and
 Go~\cite{shah2012Go,Blackman2009Go}.
 
-These deterministic, two-player, zero-sum games are widely studied because they
-are relatively simple to understand and play. Most of them have a relatively
+These deterministic, two-player, zero-sum games are widely studied because
+they are relatively simple to understand and play. Most of them have a relatively
 limited search space (Othello, Chess and Go being obvious exceptions), which
 makes them tractable to study and simulation. However, there is a whole class of
-games, with many examples that are non-deterministic, multi- player (but still
+games, with many examples that are non-deterministic, multi-player (but still
 usually zero-sum) games. While not as well studied as the two player games
 mentioned previously, there has been some research on using evolutionary
 computation to create winning strategies for these games.
 
-\subsection{Monopoly - A Non-Deterministic game}
+\subsection{Monopoly\textsuperscript{\textregistered} - A Non-Deterministic
+game}
 
-Monopoly is a game where players traverse a path around a board on which most
-spaces represent a property (See Figure 1) which players can buy. Other players
-must pay “rent” to the owner of a property when they land on that property. When
-one player owns all the properties in a color group (a monopoly), the player can
-“develop” the properties by building houses or hotels. This increases the rent
-value which increases the odds that an opponent will not be able to pay the
-rent. If a player cannot pay rent, he must sell or mortgage properties, and if
-that is not possible, give their properties to the owner. The winner is the
-player who bankrupts the other players. Some of the first studies of the game
-were statistical analyses of which properties were more valuable to
+Monopoly\textsuperscript{\textregistered} is a game where players traverse a
+path around a board on which most spaces represent a property (See
+Figure~\ref{figure-fig1}) which players can buy. Other players must pay ``rent''
+to the owner of a property when they land on that property.
+When one player owns all the properties in a color group (a monopoly), the
+player can ``develop'' the properties by building houses or hotels. This
+increases the rent value which increases the odds that an opponent will not be
+able to pay the rent. If a player cannot pay rent, he must sell or mortgage
+properties, and if that is not possible, give their properties to the owner. The
+winner is the player who bankrupts the other players. Some of the first studies
+of the game were statistical analyses of which properties were more valuable to
 own~\cite{Ash1972}. Frayn used evolutionary computing to develop an efficient
 strategy for property valuation and property
-management~\cite{DBLP:conf/cig/Frayn05}. Another important feature of Monopoly
-is the ability of players to trade different properties. Because of the random
-nature of a player's moves, it is improbable that a single player will be able
-to land on and buy all the properties in a group. So, players usually must trade
-with other players to gain a monopoly on a property group. Yasumura, et al.,
-studied different negotiating strategies to identify the best way to conduct
-negotiations between players~\cite{Yasumura2001Negotiate}.
+management~\cite{DBLP:conf/cig/Frayn05}. Another important feature of
+Monopoly\textsuperscript{\textregistered} is the ability of players to trade
+different properties. Because of the random nature of a player's moves, it is
+improbable that a single player will be able to land on and buy all the
+properties in a group. So, players usually must trade with other players to gain
+a monopoly on a property group. Yasumura, et al., studied different negotiating
+strategies to identify the best way to conduct negotiations between
+players~\cite{Yasumura2001Negotiate}.
 
-\section{Overview of the Game of Monopoly}
-\subsection{Rules of Monopoly}
+\begin{figure}[htp]
+\centerline{\includegraphics[width=1.0\columnwidth]{Monopoly.png}}
+\caption{The board layout for Monopoly. For this study, the edge of the board
+containing ``Go'' through ``Connecticut Avenue'' is South. Proceeding clockwise,
+the next edge is West. The top of the figure is North. The final edge of the
+board is East. South includes the cheapest properties; East contains the most
+expensive. Monte Carlo simulations of dice rolls show that the most landed on
+locations are on the West and North edges of the board.}
+\label{figure-fig1}
+\end{figure}
 
-Monopoly is a board game that consists of a four-sided game board, with 40
-spaces along the sides of the board where a player can land as they move around
-the board (See Figure 1). As players move around the board, they can buy and
-sell property using play money.
+\section{Overview of the Game of Monopoly\textsuperscript{\textregistered}}
+\subsection{Rules of Monopoly\textsuperscript{\textregistered}}
 
-All the players in the game start with \$1500 at the corner space marked “GO.”
+Monopoly\textsuperscript{\textregistered} is a board game that consists of a
+four-sided game board, with 40 spaces along the sides of the board where a
+player can land as they move around the board (See Figure~\ref{figure-fig1}). As
+players move around the board, they can buy and sell property using play money.
+
+All the players in the game start with \$1500 at the corner space marked ``GO.''
 Each player is represented by a game token on the board. The players take turns
 rolling two six-sided dice and moving their game token by as many spaces as the
 value of the dice. Thus, for each move, a player will move between 2 and 12
@@ -272,7 +223,7 @@ If a player rolls doubles the player moves the token, takes any actions
 necessary, and then the player is allowed a second roll of the dice. If the
 player rolls doubles on the second roll, the player is allowed a third roll. If
 the player rolls doubles a third time, they must move their token directly to
-the space marked “Jail.”
+the space marked ``Jail.''
 
 There are 28 locations on the game board that can be bought by the players. The
 locations are divided into 22 streets grouped into 8 color groups, 4 railroads,
@@ -283,14 +234,14 @@ the property). If the player lands on a property that is already owned, the
 player must pay rent to the owning player.
 
 Once a player obtains all properties within a group, the properties can be
-“improved” by building houses or hotels on the property. Improved properties
+``improved'' by building houses or hotels on the property. Improved properties
 have a higher rent.
 
 The other 12 locations on the board cannot be owned by any player. For this
 study, only one of those locations is important. That location is the corner
-space marked “Jail.” There are three circumstances that can send a player to
-Jail: drawing a special card marked “Go To Jail,” landing on the corner marked
-“Go To Jail”; or rolling doubles three times in a row in one turn.
+space marked ``Jail.'' There are three circumstances that can send a player to
+Jail: drawing a special card marked ``Go To Jail,'' landing on the corner marked
+``Go To Jail''; or rolling doubles three times in a row in one turn.
 
 A player whose token is in Jail may, on their next turn, pay \$50, roll the dice,
 and leave jail; or the player may choose to attempt to roll doubles to leave
@@ -298,14 +249,14 @@ jail. If the player has not rolled doubles on the third attempt, the player must
 immediately pay \$50 and move the number of spaces shown on the dice.
 
 The complete set of rules can be accessed at
-http://www.hasbro.com/common/instruct/monins.pdf.
+\url{http://www.hasbro.com/common/instruct/monins.pdf}.
 
 \subsection{Game Strategies}
 
 In the past, the official web site for the game provided a list of useful game
 strategies. (accessible at
-http://web.archive.org/web/20080516095129/http://www.hasbro.com/games/kid-games/monopoly/default.cfm?page=
-StrategyGuide/play\_to\_win). Some of those strategies are as follows.
+\url{http://web.archive.org/web/20080516095129/http://www.hasbro.com/games/kid-games/monopoly/default.cfm?page=StrategyGuide/play_to_win}).
+Some of those strategies are as follows.
 
 \begin{enumerate}
 
@@ -318,11 +269,13 @@ StrategyGuide/play\_to\_win). Some of those strategies are as follows.
 \item Buy a property if it is an orange property (always block this group if you
 can).
 
-\item Pay \$50 and get out of Jail early in the game while many MONOPOLY
-properties remain un-owned and undeveloped.
+\item Pay \$50 and get out of Jail early in the game while many
+Monopoly\textsuperscript{\textregistered} properties remain un-owned and
+undeveloped.
 
-\item When most MONOPOLY properties are developed between Jail and the Go to
-Jail space, roll the dice and hope to stay in Jail.
+\item When most Monopoly\textsuperscript{\textregistered} properties are
+developed between Jail and the Go to Jail space, roll the dice and hope to stay
+in Jail.
 
 \end{enumerate}
 
@@ -334,7 +287,7 @@ evolutionary computing to evolve property evaluations, and the study by
 Yasumura, et al., of negotiating strategies~\cite{Yasumura2001Negotiate}. In
 addition, there have been analytical studies and Monte Carlo simulations of the
 statistics and probability of landing on any particular location in
-Monopoly~\cite{Ash1972,Abbot1997}.
+Monopoly\textsuperscript{\textregistered}~\cite{Ash1972,Abbot1997}.
 
 A finite state machine was used to model player actions. In many cases, the
 transition from state to state is made automatically without input from the
@@ -360,8 +313,8 @@ monopoly.
 
 \end{enumerate}
 
-Based on the rules of Monopoly and previous analytic studies, the following
-focus areas were enumerated.
+Based on the rules of Monopoly\textsuperscript{\textregistered} and previous
+analytic studies, the following focus areas were enumerated.
 
 \begin{enumerate}
 
@@ -405,18 +358,18 @@ initial description of the primary chromosome used in this study, two alternate
 versions of the chromosome will be described.
 
 The first set of chromosomes consists of 4 arrays of doubles, 40 elements per
-array (See Figure 2). In this paper, this chromosome is referred to as the RGA
-Player (RGA for Real-valued Genetic Algorithm). Each element of the array
+array (See Table~\ref{table-chromo}). In this paper, this chromosome is referred
+to as the RGA Player (RGA for Real-valued Genetic Algorithm). Each element of the array
 represents the probability that the player will purchase the property
-represented by the array element. There are 40 locations on the monopoly board,
-so each location corresponds to an element in the array. The “Go” space is
-element 0, with subsequent locations assigned successive element indices.
-However, only 28 locations can be owned by a player, so 12 of the array elements
-are ignored. The chromosome could have contained only 28 locations, but by using
-40 elements, the need to create a mapping between locations and array elements
-is avoided (for improved code readability and maintainability) at a small cost
-of memory for the 12 unused elements. Each array corresponds to one of the
-following game states.
+represented by the array element. There are 40 locations on the
+Monopoly\textsuperscript{\textregistered} board, so each location corresponds
+to an element in the array. The “Go” space is element 0, with subsequent
+locations assigned successive element indices. However, only 28 locations can be
+owned by a player, so 12 of the array elements are ignored. The chromosome could
+have contained only 28 locations, but by using 40 elements, the need to create a
+mapping between locations and array elements is avoided (for improved code
+readability and maintainability) at a small cost of memory for the 12 unused
+elements. Each array corresponds to one of the following game states.
 
 \begin{enumerate}
 
@@ -440,6 +393,29 @@ complete a monopoly (2nd chromosome), and when the property is needed to block
 another player (3rd chromosome).
 
 \end{enumerate}
+
+\begin{table}[h]
+\caption{Chromosome Illustration}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\multicolumn{1}{|l|}{\raisebox{-1.50ex}[0cm][0cm]{Location\!}}
+& \multicolumn{1}{|c|}{Chr1}
+& \multicolumn{1}{|c|}{Chr2}
+& \multicolumn{1}{|c|}{Chr3}
+& \multicolumn{1}{|c|}{Chr4} \\ \hline
+0 - Go &  ignored  &  ignored &  ignored & ignored \\ \hline 
+1 - Mediterranean Ave &  $0.615$  &  $0.540$  &  $0.611$ & $0.654$ \\ \hline 
+2 - Community Chest &  ignored  &  ignored &  ignored & ignored \\ \hline
+3 - Baltic Ave &  $0.288$  &  $0.532$  &  $0.165$ & $0.088$ \\ \hline
+4 - Income Tax &  ignored  &  ignored &  ignored & ignored \\ \hline
+5 - Reading Railroad & $0.129$  &  $0.649$  &  $0.965$ & $0.390$ \\ \hline
+6 - Oriental Ave & $0.834$  &  $0.310$  &  $0.593$ & $0.738$ \\ \hline
+Etc\ldots & & & & \\ \hline
+\end{tabular}
+\label{table-chromo}
+\end{center}
+\end{table}
 
 The other set of chromosomes is used to determine when to pay to get out of
 jail, and when to remain in jail (and hopefully not roll doubles with the dice).
@@ -467,19 +443,21 @@ early in the game when few properties are owned.
 \subsection{Alternate Jail Chromosome}
 
 Because the 64x64 array described above consumes a relatively large amount of
-memory, this study also looked at an alternate genome which varied the “Get Out
-Of Jail” chromosome by making it a 4x4 array. Instead of indexing by which
+memory, this study also looked at an alternate genome which varied the ``Get Out
+Of Jail'' chromosome by making it a 4x4 array. Instead of indexing by which
 players owned properties on the West and North edges of the board, the index was
 created by determining if any of the four groups are part of a monopoly owned by
 an opponent. This only requires a two-bit index and 16 array elements. The
 player using this chromosome will be referred to as the TGA Player.
 
 \subsection{Alternate Chromosome Description}
-Goldberg described the structure of a simple GA (SGA) in Genetic Algorithms in
-Search, Optimization, and Machine Learning~\cite{goldberg1989genetic}. The SGA
-uses a single string of binary bits for its chromosome. Although the primary
-population used in this study consists of real valued chromosomes described
-above, the same information could be encoded into binary strings.
+
+Goldberg described the structure of a simple GA (SGA) in \emph{Genetic
+Algorithms in Search, Optimization, and Machine
+Learning}~\cite{goldberg1989genetic}. The SGA uses a single string of binary
+bits for its chromosome. Although the primary population used in this study
+consists of real valued chromosomes described above, the same information could
+be encoded into binary strings.
 
 We start by converting each element (gene) in the original chromosome into a 6
 bit number. Each element in the original chromosome now has a value that ranges
@@ -489,7 +467,7 @@ the first chromosome of 40 elements becomes a single string of 240 bits (6 bits
 * 40 elements). Each of the other property buying chromosomes is encoded in the
 same way.
 
-The “Get Out Of Jail” chromosome is then encoded as a 96 bit string (16 genes x
+The ``Get Out Of Jail'' chromosome is then encoded as a 96 bit string (16 genes x
 6 bits per gene). This chromosome uses the simplified indexing scheme described
 previously in Section C.
 
@@ -519,9 +497,9 @@ point per property owned at the end of the game.
 \item Number of Monopolies (NUM\_MONOPOLIES); each player receives one point for
 each monopoly they control.
 
-\item Finish Order (FINISH\_ORDER); in a game with n players, the winner of the
-game receives n1 points; second place receives n2 points, and so on. The last
-place finisher receives 0 points.
+\item Finish Order (FINISH\_ORDER); in a game with \(n\) players, the winner of
+the game receives \(n-1\) points; second place receives \(n-2\) points, and so
+on. The last place finisher receives 0 points.
 
 \item Net Worth (NET\_WORTH); at the end of each game, the net worth of each
 player is calculated. Each player receives points that equal their net
@@ -568,10 +546,10 @@ are created by blending each parent gene using these formulas
 from~\cite{adewuya1996new}:
 
 \begin{equation*}
-child_1 = \beta parent_1 + (1-\beta )parent_2
+child_1 = \beta parent_1 + (1-\beta)parent_2
 \end{equation*}
 \begin{equation*}
-child_2 = (1-\beta )parent_1 + \beta parent_2
+child_2 = (1-\beta)parent_1 + \beta parent_2
 \end{equation*}
 
 \end{enumerate}
@@ -584,12 +562,13 @@ child_2 = (1-\beta )parent_1 + \beta parent_2
 
 \subsection{RGAPlayer}
 
-The Monopoly simulation was run for 1000 generations using each combination of
-chromosomes and fitness evaluators. To try to reduce the stochastic effects of
-any single game, each generation consisted of 100 matches. Since there were 1000
-individuals and each game was simulated with 4 players, every match consisted of
-250 games. Every player played 100 games per generation, and there were a total
-of 25,000 games were played in each generation.
+The Monopoly\textsuperscript{\textregistered} simulation was run for 1000
+generations using each combination of chromosomes and fitness evaluators. To try
+to reduce the stochastic effects of any single game, each generation consisted
+of 100 matches. Since there were 1000 individuals and each game was simulated
+with 4 players, every match consisted of 250 games. Every player played 100
+games per generation, and there were a total of 25,000 games were played in each
+generation.
 
 Unlike other genetic computing processes where the average and best fitness
 improves as the population evolves, the expected results for this study are
@@ -652,23 +631,23 @@ When compared to the strategy list from Section IV, there might appear to be an
 inconsistency in the genome. The strategy says always buy a property if no one
 else owns it. Only the gene value for Park Place approaches a probability of 1.0
 which is implied by the strategy. This can easily be explained by the fact that
-if the player declines a property with probability p, the probability of
+if the player declines a property with probability \(P\), the probability of
 subsequently buying the property is higher. This is because when a player
 declines a property, it is then auctioned to any player including the declining
 player. Since the declining player makes the bid decision based on the same
 chromosome, the probability of buying the property then becomes
-  
+
 \begin{equation*}
-P_b_u_y = 1 - (1 - P_b_u_y)(1 - P_b_u_y)
+P_{buy} = 1 - (1 - P_{buy})(1 - P_{buy})
 \end{equation*}
-  
+
 That is, when a player does not buy a property, the player to must decline to
 buy it twice (i.e., decline to buy and then decline to bid for property in the
 auction). Since these are independent events, the probability of not buying is
-approximately Pdecline*Pdecline. The probability of buying is then actually 1
-minus not buying. Thus, even when the probability of buying is as low as 0.6,
-the probability of declining is 0.4, and the probability of obtaining the
-property becomes 0.84.
+approximately \(P_{decline}*P_{decline}\). The probability of buying is then
+actually 1 minus not buying. Thus, even when the probability of buying is as low
+as 0.6, the probability of declining is 0.4, and the probability of obtaining
+the property becomes 0.84.
 
 \subsection{SGA Player}
 
@@ -700,10 +679,10 @@ when or how to get out of jail which was the difference between the two genomes.
 \section{Conclusions}
 
 This study showed that evolutionary computing can be used to evolve players for
-the non-deterministic game Monopoly. These players also appear to use strategies
-similar to those that have been developed heuristically by real-world players.
-However, more real world testing is needed to see if the evolved players are
-indeed good players.
+the non-deterministic game Monopoly\textsuperscript{\textregistered}. These
+players also appear to use strategies similar to those that have been developed
+heuristically by real-world players. However, more real world testing is needed
+to see if the evolved players are indeed good players.
 
 Based on the results and other questions encountered during this study,
 additional research can be conducted in the following areas.
@@ -718,10 +697,10 @@ fitness evaluators rather than the current relative evaluators.
 or AI players to evaluate the real (rather than simulated fitness) of the
 population.
 
-\item The literature on Monopoly states that making property trades is a vital
-part of the game. This functionality could be implemented and tested to see if
-the evolved players do better when they can trade properties to create
-monopolies.
+\item The literature on Monopoly\textsuperscript{\textregistered} states that
+making property trades is a vital part of the game. This functionality could be
+implemented and tested to see if the evolved players do better when they can
+trade properties to create monopolies.
 
 \item The fitness distribution for the SGA player diverged from the mean rather
 than converged as was expected. This behavior could be investigated to determine
@@ -734,17 +713,17 @@ whether this is an anomaly or if there is some logical reason for this.
 \section*{Appendix}
 
 The code used to run the genetic algorithm is available at
-http://github.com/kmukhar/GAMonopoly.
+\url{http://github.com/kmukhar/GAMonopoly}.
 
 % Trigger a \newpage just before a given reference number in order to
-% balance the columns on the last page.  Adjust the value as needed;
+% balance the columns on the last page. Adjust the value as needed;
 % it may need to be readjusted if the document is modified later.
-%\IEEEtriggeratref{8}
+\IEEEtriggeratref{16}
 % The "triggered" command can be changed if desired:
 %\IEEEtriggercmd{\enlargethispage{-5in}}
 
 % The references section can either be generated by hand or by an
-% automatic tool like BibTeX.  If using BibTex, use the standard IEEEtran
+% automatic tool like BibTeX. If using BibTex, use the standard IEEEtran
 % bibliography style.
 \bibliographystyle{IEEEtran}
 %
